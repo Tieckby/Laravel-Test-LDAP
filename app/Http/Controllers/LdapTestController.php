@@ -16,12 +16,13 @@ class LdapTestController extends Controller
     public function test_windows_auth()
     {
         $isLogged = Auth::check();
-        $username = $_SERVER['AUTH_USER'];
+        $windowsUsername = $_SERVER['AUTH_USER'];
 
-        if (isset($username)) {
+        if (isset($windowsUsername)) {
+            $username = substr($windowsUsername, strpos($windowsUsername, "\\")+1);
             return response()->json([
                 'isLogged' => $isLogged,
-                'username' => $username,
+                'welcome' => "Welcome $username",
                 'currentUser' => User::where('samaccountname', '=', 'hello.test')->first(),
             ], 200);
         }
