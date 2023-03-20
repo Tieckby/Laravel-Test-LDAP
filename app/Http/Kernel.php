@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'auth.windows' => \LdapRecord\Laravel\Middleware\WindowsAuthenticate::class,
+        'cors' => \App\Http\Middleware\Cors::class,
     ];
 }
