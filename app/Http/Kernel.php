@@ -24,6 +24,9 @@ class Kernel extends HttpKernel
 
         //Add Windows Single-Sign-On
         \LdapRecord\Laravel\Middleware\WindowsAuthenticate::class,
+
+        //Cors Middleware
+        \App\Http\Middleware\Cors::class,
     ];
 
     /**
@@ -68,6 +71,5 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'auth.windows' => \LdapRecord\Laravel\Middleware\WindowsAuthenticate::class,
-        'cors' => \App\Http\Middleware\Cors::class,
     ];
 }

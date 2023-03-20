@@ -21,4 +21,4 @@ Route::post('/login', [LdapTestController::class, 'login']);
 //     'auth.windows:api',
 // ])->get('/test', [LdapTestController::class, 'test_windows_auth']);
 
-Route::get('/test', [LdapTestController::class, 'test_windows_auth'])->middleware('cors');
+Route::get('/test', [LdapTestController::class, 'test_windows_auth']);
