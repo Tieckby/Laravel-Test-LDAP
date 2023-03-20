@@ -26,7 +26,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
-        // WindowsAuthenticate::guards(['api']);
+        WindowsAuthenticate::extractDomainUsing(function ($account) {
+            [$username, $domain] = array_pad(
+                array_reverse(explode('\\', $account)),
+                2,
+                null
+            );
+
+            return [$username, $domain];
+        });
     }
 }

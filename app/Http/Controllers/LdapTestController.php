@@ -6,9 +6,6 @@ use App\Ldap\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use LdapRecord\Container;
-use LdapRecord\Laravel\Middleware\WindowsAuthenticate;
-use LdapRecord\Laravel\Testing\DirectoryEmulator;
 
 // use LdapRecord\Models\OpenLDAP\OrganizationalUnit;
 
@@ -18,33 +15,20 @@ class LdapTestController extends Controller
 
     public function test_windows_auth()
     {
-        // DirectoryEmulator::setup('test1simple1');
+        $isLogged = Auth::check();
+        $username = $_SERVER['AUTH_USER'];
 
-        // $ldapUser = User::create([
-        //     'cn' => $this->faker->name,
-        //     'mail' => $this->faker->email,
-        //     'objectguid' => $this->faker->uuid,
-        //     'samaccountname' => $this->faker->userName,
-        // ]);
-
-        // Replace 'DOMAIN' with your domain from your configured LDAP
-        // `base_dn`. For example, if your `base_dn` is equal to
-        // 'dc=company,dc=com', then you would use 'COMPANY'.
-        // $authUser = implode('\\', [
-        //     'test', $ldapUser->getFirstAttribute('samaccountname')
-        // ]);
-
-        // Set the server variables for the upcoming request.
-        // $this->withServerVariables([
-        //     WindowsAuthenticate::$serverKey => $authUser
-        // ]);
+        if (isset($username)) {
+            return response()->json([
+                'isLogged' => $isLogged,
+                'currentUser' => User::where('samaccountname', '=', 'hello.test')->first(),
+            ], 200);
+        }
 
         return response()->json([
-            'isLogged' => Auth::check(),
-            'key' => WindowsAuthenticate::$serverKey,
-            'username' => isset($_SERVER['AUTH_USER']) ? $_SERVER['AUTH_USER'] : "...",
-            'serverData' => $_SERVER,
-        ], 200);
+            'error' => "Error...",
+            'isLogged' => $isLogged
+        ], 401);
     }
 
     public function login(Request $request) {
