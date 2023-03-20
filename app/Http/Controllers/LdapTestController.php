@@ -21,6 +21,7 @@ class LdapTestController extends Controller
         if (isset($username)) {
             return response()->json([
                 'isLogged' => $isLogged,
+                'username' => $username,
                 'currentUser' => User::where('samaccountname', '=', 'hello.test')->first(),
             ], 200);
         }
