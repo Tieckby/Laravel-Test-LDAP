@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Ldap\User;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,19 +10,22 @@ use Illuminate\Support\Facades\Auth;
 
 class LdapTestController extends Controller
 {
-    use WithFaker;
-
+    ///Test Windows Authentication with AD
     public function test_windows_auth()
     {
         $isLogged = Auth::check();
-        $windowsUsername = $_SERVER['AUTH_USER'];
 
-        if (isset($windowsUsername)) {
+        if ($isLogged && isset($_SERVER['AUTH_USER'])) {
+            $windowsUsername = $_SERVER['AUTH_USER'];
             $username = substr($windowsUsername, strpos($windowsUsername, "\\")+1);
+            $currentUser = Auth::user();
+            $currentUserUsingWhereClause = User::where('samaccountname', '=', $username)->first();
+
             return response()->json([
                 'isLogged' => $isLogged,
                 'welcome' => "Welcome $username",
-                'currentUser' => User::where('samaccountname', '=', 'hello.test')->first(),
+                'currentUser' => $currentUser,
+                'currentUserUsingWhereClause' => $currentUserUsingWhereClause,
             ], 200);
         }
 
@@ -33,22 +35,25 @@ class LdapTestController extends Controller
         ], 401);
     }
 
+    ///Test (Username & Password) Authentication with AD
     public function login(Request $request) {
+        $username = $request->username;
         $credentials = [
-            'UserPrincipalName' => $request->username.'@test.1simple1',
+            'UserPrincipalName' => $username.'@test.1simple1',
             'password' => $request->password,
         ];
 
         $isLogged = Auth::attempt($credentials);
 
         if ($isLogged){
-            $user = Auth::user();
+            $currentUser = Auth::user();
+            $currentUserUsingWhereClause = User::where('samaccountname', '=', $username)->first();
 
             return response()->json([
-                'user' => $user,
                 'isLogged' => $isLogged,
-                'findByUID' => User::where('samaccountname', '=', 'hello.test')->first(),
-                'list' => User::all(),
+                'welcome' => "Welcome $username",
+                'currentUser' => $currentUser,
+                'currentUserUsingWhereClause' => $currentUserUsingWhereClause,
             ], 200);
         }
         else {
@@ -57,50 +62,6 @@ class LdapTestController extends Controller
                 'isLogged' => $isLogged
             ], 401);
         }
-
-        // try {
-
-        //     //Authentication Using Auth
-        //     if (Auth::attempt(
-        //         [
-        //             'UserPrincipalName' => $request->username,
-        //             'password' => $request->password
-        //         ])) {
-
-        //         return "It's OK";
-        //     }
-
-        //     return "Not OK";
-
-        // $connection = Container::getDefaultConnection();
-        //     //Authentication Using Container Connection
-        //     if ($connection->auth()->attempt($request->username, $request->password))
-        //     {
-        //         $query = $connection->query();
-        //         // $results = $query->findBy('samaccountname', 'hello.test');
-        //         $results = $query->select(['cn', 'samaccountname'])->get();
-
-        //         $user = User::where('samaccountname', '=', 'hello3.test')->first();
-
-        //         return response()->json([
-        //             'message' => "Successfully connected !",
-        //             'users' => $user,
-        //             'result' => mb_convert_encoding($results, 'UTF-8')
-        //         ], 200);
-        //     }
-
-        //     return response()->json([
-        //         'error_message' => "Username or Password Invalid !",
-        //     ], 401);
-
-        //     // echo "Successfully connected!";
-        // } catch (\LdapRecord\Auth\BindException $e) {
-        //     $error = $e->getDetailedError();
-
-        //     echo $error->getErrorCode();
-        //     echo $error->getErrorMessage();
-        //     echo $error->getDiagnosticMessage();
-        // }
     }
 
     /**
