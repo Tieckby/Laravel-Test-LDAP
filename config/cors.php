@@ -17,17 +17,18 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
-    'allowed_methods' => ['GET, POST, PUT, DELETE'],
+    'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://portal-webapp'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['Access-Control-Allow-Origin, Accept, Authorization, Content-type'],
+    'allowed_headers' => ['*'],
 
     'exposed_headers' => [],
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    'supports_credentials' => false,
+
 ];
