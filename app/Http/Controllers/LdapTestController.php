@@ -14,9 +14,9 @@ class LdapTestController extends Controller
     public function test_windows_auth()
     {
         $isLogged = Auth::check();
-        $windowsUsername = $_SERVER['AUTH_USER'];
 
-        if (isset($windowsUsername)) {
+        if ($isLogged && isset($_SERVER['AUTH_USER'])) {
+            $windowsUsername = $_SERVER['AUTH_USER'];
             $username = substr($windowsUsername, strpos($windowsUsername, "\\")+1);
             $currentUser = Auth::user();
             $currentUserUsingWhereClause = User::where('samaccountname', '=', $username)->first();
