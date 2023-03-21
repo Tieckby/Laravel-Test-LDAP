@@ -26,7 +26,7 @@ class Kernel extends HttpKernel
         \LdapRecord\Laravel\Middleware\WindowsAuthenticate::class,
 
         //Cors Middleware
-        // \App\Http\Middleware\Cors::class,
+        \App\Http\Middleware\Cors::class,
     ];
 
     /**
@@ -45,11 +45,11 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
 
-            // 'cors' => \App\Http\Middleware\Cors::class,
+            'cors' => \App\Http\Middleware\Cors::class,
         ],
     ];
 
