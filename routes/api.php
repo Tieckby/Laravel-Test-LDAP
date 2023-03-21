@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [LdapTestController::class, 'login']);
 
-Route::middleware([
-    'auth.windows:api',
-])->get('/test', [LdapTestController::class, 'test_windows_auth']);
+// Route::middleware([
+//     'auth.windows:api',
+// ])->get('/test', [LdapTestController::class, 'test_windows_auth']);
+
+Route::get('/test', [LdapTestController::class, 'test_windows_auth']);
