@@ -26,7 +26,7 @@ class Kernel extends HttpKernel
         \LdapRecord\Laravel\Middleware\WindowsAuthenticate::class,
 
         //Cors Middleware
-        // \App\Http\Middleware\Cors::class,
+        \App\Http\Middleware\Cors::class,
     ];
 
     /**
@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
 
 
         'auth.windows' => \LdapRecord\Laravel\Middleware\WindowsAuthenticate::class,
+        'cors' => \App\Http\Middleware\Cors::class,
     ];
 }
