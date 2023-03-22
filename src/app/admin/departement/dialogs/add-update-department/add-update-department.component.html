@@ -1,0 +1,53 @@
+<div>
+  <div>
+    <h2 mat-dialog-title *ngIf="data.action === 'add'">Ajouter un département</h2>
+    <h2 mat-dialog-title *ngIf="data.action === 'update'">Modifier un département</h2>
+    <h2 mat-dialog-title *ngIf="data.action === 'view'">Détails du département</h2>
+  </div>
+  <div mat-dialog-content>
+    <div *ngIf="data.action === 'view'">
+      <ul>
+        <li>
+          Nom : <strong>{{data.departmentData.name}}</strong>
+        </li>
+      </ul>
+      <p>
+        periam dicta commodi magnam hic voluptatibus necessitatib <br>
+        periam dicta commodi magnam hic voluptatibus necessitatib
+      </p>
+      <p>
+        periam dicta commodi magnam hic voluptatibus necessitatib <br>
+        periam dicta commodi magnam hic voluptatibus necessitatib
+      </p>
+    </div>
+    <div *ngIf="data.action === 'add' || data.action === 'update'">
+      <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+        <div class="grid mb-6">
+          <label for="name" class="mb-2">Nom du département</label>
+          <input id="name" type="text" required minlength="3" maxlength="50" placeholder="Entrez le nom du département..." class="customInput" formControlName="name">
+
+          <div class="text-xs" *ngIf="departmentForm.invalid && (departmentForm.controls['name'].dirty || departmentForm.controls['name'].touched)">
+            <mat-error *ngIf="departmentForm.controls['name'].errors?.['required']">
+              Le nom est obligatoire !
+            </mat-error>
+            <mat-error *ngIf="departmentForm.controls['name'].errors?.['minlength']">
+              Le nom doit contenir au moins 3 caractères !
+            </mat-error>
+            <mat-error *ngIf="departmentForm.controls['name'].errors?.['maxlength']">
+              Le nom doit contenir au max 50 caractères !
+            </mat-error>
+          </div>
+        </div>
+
+        <div class="flex flex-row mb-10">
+          <button type="reset" (click)="onCancel()" class="customInput onHoverCancelButton mr-4">
+            Annuler
+          </button>
+          <button type="submit" [disabled]="departmentForm.invalid" class="customInput onHoverButton">
+            Envoyer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

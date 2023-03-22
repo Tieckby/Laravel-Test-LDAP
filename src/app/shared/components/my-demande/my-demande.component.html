@@ -1,0 +1,63 @@
+<div>
+  <div>
+    <h2>Mes demandes</h2>
+  </div>
+
+  <div class="pb-2">
+    <input type="text" placeholder="Recherche..." class="customInput mr-2" (keyup)="onChange($event)">
+    <button type="button" class="customInput onHoverButton mt-2">
+      Ajouter
+    </button>
+  </div>
+
+  <div class="mat-elevation-z8 overflow-auto">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- Motif Column -->
+      <ng-container matColumnDef="motif">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Motif</th>
+        <td mat-cell *matCellDef="let element">{{element.motif}}</td>
+      </ng-container>
+
+      <!-- Comment Column -->
+      <ng-container matColumnDef="comment">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Commentaire</th>
+        <td mat-cell *matCellDef="let element">{{element.comment}}</td>
+      </ng-container>
+
+      <!-- Period Column -->
+      <ng-container matColumnDef="period">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Période</th>
+        <td mat-cell *matCellDef="let element">{{element.period}}</td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
+        <td mat-cell *matCellDef="let element">{{element.status}}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button type="button" class="customIconButton onHoverButton">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-raised-button type="button" class="customIconButton onHoverButton">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator pageSize="2" [pageSizeOptions]="[0, 1, 2, 5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
+  <div class="mt-10">
+    dng elit. Iste, doloribus voluptatibus eveniet iusto, perferendis quidem molestias tempora placeat incidunt mollitia excepturi eos corporis libero nobis, adipisci corrupti reprehenderit officiis eius? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis delectus repudiandae consectetur itaque facere, quam, unde ipsa facilis nisi provident error non suscipit aspernatur! Maiores molestiae dicta ipsum in voluptatibus.Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita maxime inventore perspiciatis cumque ullam autem, quo libero debitis consequatur incidunt quae ipsum culpa, corporis officia sint corrupti sunt, quis veritatis?
+    Lorem ipsum dolor sit
+  </div>
+</div>

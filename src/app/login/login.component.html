@@ -1,0 +1,80 @@
+<div class="flex justify-center items-center h-screen bg-gray-700">
+      <div class="p-10 bg-white text-black">
+        <div class="flex justify-center mb-5">
+          <img src="assets/images/logos/1simple1.png" class="w-auto" alt="Logo Microsoft">
+        </div>
+        <h1>Bienvenu sur le Portal de <strong>1SIMPLE1</strong></h1>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="grid mb-6">
+            <label for="identifier" class="mb-2">Nom d'utilisateur ou email ou téléphone</label>
+            <input id="identifier" type="text" required minlength="3" maxlength="50" placeholder="Entrez votre identifiant..." class="customInput" formControlName="usernameOrEmailOrPhone">
+
+            <div *ngIf="loginForm.invalid && (loginForm.controls['usernameOrEmailOrPhone'].dirty || loginForm.controls['usernameOrEmailOrPhone'].touched)">
+              <mat-error *ngIf="loginForm.controls['usernameOrEmailOrPhone'].errors?.['required']">
+                Ce champ est obligatoire !
+              </mat-error>
+              <mat-error *ngIf="loginForm.controls['usernameOrEmailOrPhone'].errors?.['minlength']">
+                Ce champ doit contenir au moins 3 caractères !
+              </mat-error>
+              <mat-error *ngIf="loginForm.controls['usernameOrEmailOrPhone'].errors?.['maxlength']">
+                Ce champ doit contenir au max 50 caractères !
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="grid mb-6">
+            <label for="password" class="mb-2">Mot de passe</label>
+            <input id="password" type="password" required minlength="8" placeholder="Entrez votre mot de passe..." class="customInput" formControlName="password">
+
+            <div *ngIf="loginForm.invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+              <mat-error *ngIf="loginForm.controls['password'].errors?.['required']">
+                Le mot de passe est obligatoire !
+              </mat-error>
+              <mat-error *ngIf="loginForm.controls['password'].errors?.['minlength']">
+                Le mot de passe doit contenir au moins 8 caractères !
+              </mat-error>
+              <mat-error *ngIf="loginForm.controls['password'].errors?.['maxlength']">
+                Le mot de passe doit contenir au max 50 caractères !
+              </mat-error>
+            </div>
+          </div> -->
+
+          <div class="grid mb-6">
+            <label for="password" class="mb-2">Mot de passe</label>
+            <input id="password" type="password" required placeholder="Entrez votre mot de passe..." class="customInput" formControlName="password">
+
+            <div *ngIf="loginForm.invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+              <mat-error *ngIf="loginForm.controls['password'].errors?.['required']">
+                Le mot de passe est obligatoire !
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="grid mb-10">
+            <p class="text-right mb-2"><a [routerLink]="'/forgot-password'" target="_blank" rel="Mot de passe oublié">Mot de passe oublié ?</a></p>
+            <button type="submit" [disabled]="loginForm.invalid || loading" class="customInput onHoverButton">
+              Connexion <span class="customLoadingButton" *ngIf="loading"></span>
+            </button>
+          </div>
+        </form>
+
+        <div class="grid mb-2 grid-cols-3 items-center text-gray-500">
+          <hr class="text-gray-500">
+          <span class="text-center">OU</span>
+          <hr class="text-gray-500">
+        </div>
+
+        <div class="grid">
+          <button class="customInput onHoverButton">
+              <div class="relative flex items-center justify-center">
+                  <img src="assets/images/logos/microsoft.png" class="w-4 sm:w-5 mr-5" alt="Logo Microsoft">
+                  <span class="text-xs sm:text-base">
+                    Connexion avec Microsoft
+                  </span>
+              </div>
+          </button>
+        </div>
+      </div>
+</div>
+
+

@@ -1,0 +1,184 @@
+<div>
+  <div>
+    <h2 mat-dialog-title *ngIf="data.action === 'add'">Ajouter un employé</h2>
+    <h2 mat-dialog-title *ngIf="data.action === 'update'">Modifier un employé</h2>
+    <h2 mat-dialog-title *ngIf="data.action === 'view'">Informations de l'employé</h2>
+  </div>
+  <div mat-dialog-content>
+    <div *ngIf="data.action === 'view'">
+      <ul>
+        <li>
+          Nom Complet: <strong>{{data.employeeData.fullName}}</strong>
+        </li>
+      </ul>
+      <p>
+        periam dicta commodi magnam hic voluptatibus necessitatib <br>
+        periam dicta commodi magnam hic voluptatibus necessitatib
+      </p>
+      <p>
+        periam dicta commodi magnam hic voluptatibus necessitatib <br>
+        periam dicta commodi magnam hic voluptatibus necessitatib
+      </p>
+    </div>
+    <div *ngIf="data.action === 'add' || data.action === 'update'">
+      <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+        <div class="mb-6 grid grid-cols-2">
+          <div class="grid mr-4">
+            <label for="fullName" class="">Nom Complet</label>
+            <input id="fullName" type="text" required minlength="3" maxlength="50" placeholder="Entrez le nom..." class="customInput" formControlName="fullName">
+            <div class="text-xs" *ngIf="employeeForm.invalid && (employeeForm.controls['fullName'].dirty || employeeForm.controls['fullName'].touched)">
+              <mat-error *ngIf="employeeForm.controls['fullName'].errors?.['required']">
+                Le nom est obligatoire !
+              </mat-error>
+              <mat-error *ngIf="employeeForm.controls['fullName'].errors?.['minlength']">
+                Le nom doit contenir au moins 3 caractères !
+              </mat-error>
+              <mat-error *ngIf="employeeForm.controls['fullName'].errors?.['maxlength']">
+                Le nom doit contenir au max 50 caractères !
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="grid">
+            <label for="email" class="">Email</label>
+            <input id="email" type="text" required minlength="3" maxlength="50" placeholder="Entrez l'email..." class="customInput" formControlName="email">
+
+            <div class="text-xs" *ngIf="employeeForm.invalid && (employeeForm.controls['email'].dirty || employeeForm.controls['email'].touched)">
+              <mat-error *ngIf="employeeForm.controls['email'].errors?.['required']">
+                L'email est obligatoire !
+              </mat-error>
+              <mat-error *ngIf="employeeForm.controls['email'].errors?.['pattern']">
+                Veuillez entrer le bon format d'email !
+              </mat-error>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-6 grid grid-cols-2">
+          <div class="grid mr-4">
+            <label for="username" class="mb-2">Nom d'utilisateur</label>
+            <input id="username" type="text" required minlength="3" maxlength="50" placeholder="Entrez le nom d'utilisateur..." class="customInput" formControlName="username">
+
+            <div class="text-xs" *ngIf="employeeForm.invalid && (employeeForm.controls['username'].dirty || employeeForm.controls['username'].touched)">
+              <mat-error *ngIf="employeeForm.controls['username'].errors?.['required']">
+                Le nom d'utilisateur est obligatoire !
+              </mat-error>
+              <mat-error *ngIf="employeeForm.controls['username'].errors?.['minlength']">
+                Le nom d'utilisateur doit contenir au moins 3 caractères !
+              </mat-error>
+              <mat-error *ngIf="employeeForm.controls['username'].errors?.['maxlength']">
+                Le nom d'utilisateur doit contenir au max 50 caractères !
+              </mat-error>
+              <mat-error *ngIf="employeeForm.controls['username'].errors?.['pattern']">
+                Le nom d'utilisateur ne doit contenir que des lettres (majuscules ou minuscules) ou des chiffres ou _
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="grid">
+            <label for="phoneNumber" class="mb-2">Téléphone</label>
+            <input id="phoneNumber" type="text" required minlength="8" maxlength="20" placeholder="Entrez le numéro..." class="customInput" formControlName="phoneNumber">
+
+              <div class="text-xs" *ngIf="employeeForm.invalid && (employeeForm.controls['phoneNumber'].dirty || employeeForm.controls['phoneNumber'].touched)">
+                <mat-error *ngIf="employeeForm.controls['phoneNumber'].errors?.['required']">
+                  Le numéro de téléphone est obligatoire !
+                </mat-error>
+                <mat-error *ngIf="employeeForm.controls['phoneNumber'].errors?.['minlength']">
+                  Le numéro de téléphone doit contenir au moins 8 caractères !
+                </mat-error>
+                <mat-error *ngIf="employeeForm.controls['phoneNumber'].errors?.['maxlength']">
+                  Le numéro de téléphone doit contenir au max 50 caractères !
+                </mat-error>
+                <mat-error *ngIf="employeeForm.controls['phoneNumber'].errors?.['pattern']">
+                  Veuillez entrer le bon numéro de téléphone, avec l'indicateur du pays (+223, ...) !
+                </mat-error>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-6 grid grid-cols-2">
+          <div class="grid mr-4">
+            <label for="departement" class="mb-2">Département</label>
+            <div class="relative">
+              <select id="departement" class="customInput w-full pr-10 appearance-none" formControlName="departement" required>
+                <option value="">Choisir</option>
+                <option value="Département 1">Département 1</option>
+                <option value="Département 2">Département 2</option>
+                <option value="Département 3">Département 3</option>
+                <option value="Département 4">Département 4</option>
+              </select>
+              <span class="absolute right-0 p-2">
+                <mat-icon>arrow_drop_down</mat-icon>
+              </span>
+            </div>
+
+            <div class="text-xs" *ngIf="employeeForm.invalid && (employeeForm.controls['departement'].dirty || employeeForm.controls['departement'].touched)">
+              <mat-error *ngIf="employeeForm.controls['departement'].errors?.['required']">
+                Le choix du département est obligatoire !
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="grid">
+            <label for="role" class="mb-2">Rôle</label>
+            <div class="relative">
+              <select id="role" class="customInput w-full pr-10 appearance-none" formControlName="role" required>
+                <option value="">Choisir</option>
+                <option value="Rôle 1" selected>Rôle 1</option>
+                <option value="Rôle 2">Rôle 2</option>
+                <option value="Rôle 3">Rôle 3</option>
+                <option value="Rôle 4">Rôle 4</option>
+              </select>
+              <span class="absolute right-0 p-2">
+                <mat-icon>arrow_drop_down</mat-icon>
+              </span>
+            </div>
+
+              <div class="text-xs" *ngIf="employeeForm.invalid && (employeeForm.controls['role'].dirty || employeeForm.controls['role'].touched)">
+                <mat-error *ngIf="employeeForm.controls['role'].errors?.['required']">
+                  Le choix du Rôle est obligatoire !
+                </mat-error>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-6 grid grid-cols-2" *ngIf="data.action === 'add'">
+          <div class="grid mr-4">
+            <label for="password" class="mb-2">Mot de passe</label>
+            <div class="relative">
+              <input id="password" [type]="hidePassword ? 'password' : 'text'" required minlength="8" maxlength="50" placeholder="Entrez le mot de passe..." class="customInput w-full pr-10" formControlName="password">
+              <span class="absolute right-0 p-2">
+                <mat-icon (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </span>
+            </div>
+
+            <div class="text-xs" *ngIf="employeeForm.invalid && (employeeForm.controls['password'].dirty || employeeForm.controls['password'].touched)">
+              <mat-error *ngIf="employeeForm.controls['password'].errors?.['required']">
+                Le mot de password est obligatoire !
+              </mat-error>
+              <mat-error *ngIf="employeeForm.controls['password'].errors?.['minlength']">
+                Le mot de password doit contenir au moins 8 caractères !
+              </mat-error>
+              <mat-error *ngIf="employeeForm.controls['password'].errors?.['maxlength']">
+                Le mot de password doit contenir au max 50 caractères !
+              </mat-error>
+              <mat-error *ngIf="employeeForm.controls['password'].errors?.['pattern']">
+                Le mot de passe doit contenir au moins un chiffre, une lettre majuscule et minuscule, un caractère spécial (.@#\$%&*~!?_-) !
+              </mat-error>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-row mb-10">
+          <button type="reset" (click)="onCancel()" class="customInput onHoverCancelButton mr-4">
+            Annuler
+          </button>
+          <button type="submit" [disabled]="employeeForm.invalid" class="customInput onHoverButton">
+            Envoyer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

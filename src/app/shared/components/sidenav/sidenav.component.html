@@ -1,0 +1,195 @@
+<div>
+  <div>
+    <div *ngIf="isSidebarOpen" class="min-h-screen flex flex-row fixed bottom-0 top-0 left-0 z-20">
+      <div class="flex flex-col w-56 bg-red-700 text-white">
+          <div class="flex justify-center items-center">
+              <div class="mt-2">
+                  <img class="w-20 h-20" src="assets/images/user.png" alt="User">
+              </div>
+          </div>
+          <div class="mt-1 text-center">
+              <h2 class="font-bold">Hello Tiemoko</h2>
+              <h4>Admin</h4>
+          </div>
+          <div class="mt-1">
+              <hr class="bg-black h-1 border-none">
+          </div>
+          <ul class="flex flex-col py-4 overflow-y-auto overflow-x-hidden">
+            <!-- <li class="hover:bg-black mb-2" *ngFor="let item of sideBarItems">
+              <a [routerLink]="item.path != '' ? item.path : null" [routerLinkActive]="'activeLink'" class="flex flex-row items-center h-12 p-2 cursor-pointer hover:translate-x-2 duration-500">
+                  <mat-icon class="mr-3">{{item.icon}}</mat-icon>
+                  <span class="text-sm">{{item.title}}</span>
+              </a>
+            </li> -->
+            <li class="hover:bg-black mb-2">
+              <a [routerLink]="'/admin-dashbord'" [routerLinkActive]="'activeLink'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                  <mat-icon class="mr-3">home</mat-icon>
+                  <span class="text-sm">Tableau de bord</span>
+              </a>
+            </li>
+            <li class="hover:bg-black mb-2">
+              <a [routerLink]="'/department'" [routerLinkActive]="'activeLink'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                  <mat-icon class="mr-3">apartment</mat-icon>
+                  <span class="text-sm">Départements</span>
+              </a>
+            </li>
+            <li class="hover:bg-black mb-2">
+              <a [routerLink]="'/employee'" [routerLinkActive]="'activeLink'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                <mat-icon class="mr-3">manage_accounts</mat-icon>
+                <span class="text-sm">Employés</span>
+            </a>
+            </li>
+            <li class="hover:bg-black mb-2">
+              <a (click)="onClickSubMenu()" class="flex flex-row items-center h-12 p-2 cursor-pointer hover:translate-x-2 duration-500">
+                <mat-icon class="mr-3">contact_support</mat-icon>
+                <span class="text-sm">Demandes</span>
+                  <mat-icon class="absolute right-0 m-5" *ngIf="!isSubMenuOpen">arrow_right</mat-icon>
+                  <mat-icon class="absolute right-0 m-5" *ngIf="isSubMenuOpen">arrow_drop_down</mat-icon>
+              </a>
+              <div *ngIf="isSubMenuOpen">
+                <ul class="ml-5">
+                  <li class="mb-2">
+                    <a [routerLink]="'/all-demandes'" [routerLinkActive]="'bg-gray-600'" class="flex flex-row items-center h-12 p-2 hover:bg-gray-600 hover:translate-x-2 duration-500">
+                      <mat-icon class="mr-3">forum</mat-icon>
+                        <span class="text-sm">Toutes les demandes</span>
+                    </a>
+                  </li>
+                  <li class="hover:bg-black mb-2">
+                    <a [routerLink]="'/my-demande'" [routerLinkActive]="'bg-gray-600'" class="flex flex-row items-center h-12 p-2 hover:bg-gray-600 hover:translate-x-2 duration-500">
+                      <mat-icon class="mr-3">forum</mat-icon>
+                        <span class="text-sm">Mes demandes</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+          </li>
+          <!-- <li class="hover:bg-black mb-2">
+            <a [routerLink]="'/test'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                <mat-icon class="mr-3">work</mat-icon>
+                <span class="text-sm">Type d'emplois</span>
+            </a>
+          </li>
+          <li class="hover:bg-black mb-2">
+            <a [routerLink]="'/test'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                <mat-icon class="mr-3">school</mat-icon>
+                <span class="text-sm">Formations</span>
+            </a>
+          </li> -->
+          <!-- <li class="hover:bg-black mb-2">
+            <a [routerLink]="'/test'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                <mat-icon class="mr-3">holiday_village</mat-icon>
+                <span class="text-sm">Congés</span>
+            </a>
+          </li>
+          <li class="hover:bg-black mb-2">
+            <a [routerLink]="'/test'" [routerLinkActive]="'activeLink'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                <mat-icon class="mr-3">delete</mat-icon>
+                <span class="text-sm">Corbeille</span>
+            </a>
+          </li> -->
+      </ul>
+      </div>
+    </div>
+    <div *ngIf="isMobileSidebarOpen" class="min-h-screen flex flex-row fixed bottom-0 top-0 left-0 z-20">
+      <div class="flex flex-col w-56 bg-green-700 text-white">
+          <div class="flex justify-center items-center">
+              <div class="mt-2">
+                  <img class="w-20 h-20" src="assets/images/user.png" alt="User" width="100">
+              </div>
+          </div>
+          <div class="mt-2 text-center">
+              <h1 class="font-bold">Hello Tiemoko</h1>
+              <h3>Software Developer</h3>
+          </div>
+          <div class="mt-2">
+              <hr class="bg-black h-2 border-none">
+          </div>
+          <ul class="flex flex-col py-4 overflow-y-auto overflow-x-hidden">
+              <li class="hover:bg-black mb-2" (click)="onClickMobileMenuItem()">
+                  <a [routerLink]="'/profile'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                      <mat-icon class="mr-3">home</mat-icon>
+                      <span class="text-sm">Tableau de bord</span>
+                  </a>
+              </li>
+              <li class="hover:bg-black mb-2" (click)="onClickMobileMenuItem()">
+                <a [routerLink]="'/test'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                    <mat-icon class="mr-3">contact_support</mat-icon>
+                    <span class="text-sm">Demande</span>
+                </a>
+              </li>
+              <li class="hover:bg-black mb-2" (click)="onClickMobileMenuItem()">
+                <a [routerLink]="'/test'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                    <mat-icon class="mr-3">manage_accounts</mat-icon>
+                    <span class="text-sm">Employés</span>
+                </a>
+              </li>
+              <li class="hover:bg-black mb-2" (click)="onClickMobileMenuItem()">
+                <a [routerLink]="'/test'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                    <mat-icon class="mr-3">work</mat-icon>
+                    <span class="text-sm">Type d'emplois</span>
+                </a>
+              </li>
+              <li class="hover:bg-black mb-2" (click)="onClickMobileMenuItem()">
+                <a [routerLink]="'/test'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                    <mat-icon class="mr-3">apartment</mat-icon>
+                    <span class="text-sm">Departements</span>
+                </a>
+              </li>
+              <li class="hover:bg-black mb-2" (click)="onClickMobileMenuItem()">
+                <a [routerLink]="'/test'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                    <mat-icon class="mr-3">manage_accounts</mat-icon>
+                    <span class="text-sm">Formations</span>
+                </a>
+              </li>
+              <li class="hover:bg-black mb-2" (click)="onClickMobileMenuItem()">
+                <a [routerLink]="'/test'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                    <mat-icon class="mr-3">holiday_village</mat-icon>
+                    <span class="text-sm">Type de congés</span>
+                </a>
+              </li>
+              <li class="hover:bg-black mb-2" (click)="onClickMobileMenuItem()">
+                <a [routerLink]="'/test'" class="flex flex-row items-center h-12 p-2 hover:translate-x-2 duration-500">
+                    <mat-icon class="mr-3">delete</mat-icon>
+                    <span class="text-sm">Corbeille</span>
+                </a>
+              </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+  <main class="sm:ml-56">
+      <div class="flex justify-between items-center py-3 bg-black text-white sticky top-0 z-10">
+          <div class="ml-1">
+            <img width="150" src="assets/images/logos/1simple1_white.png" alt="Logo 1SIMPLE1">
+          </div>
+          <div class="flex items-center">
+              <div class="flex items-center mr-1">
+                  <button mat-button [matMenuTriggerFor]="profileMenu" class="flex justify-center items-center hover:bg-red-600 p-2 rounded">
+                      <div class="mr-2">
+                          <mat-icon>person</mat-icon>
+                      </div>
+                      <div>
+                          Compte
+                      </div>
+                  </button>
+                  <mat-menu #profileMenu="matMenu">
+                      <button mat-menu-item>
+                          Mon profile
+                      </button>
+                      <button [routerLink]="'/login'" mat-menu-item>
+                          <mat-icon>logout</mat-icon>
+                          Se déconnecter
+                      </button>
+                  </mat-menu>
+              </div>
+              <button type="button" class="font-bold ml-2 mr-4 sm:hidden" (click)="onClickMobileBarMenu()">
+                  <mat-icon *ngIf="enabledBarIcon">menu</mat-icon>
+                  <mat-icon *ngIf="!enabledBarIcon">close</mat-icon>
+              </button>
+          </div>
+      </div>
+      <div class="m-4">
+          <router-outlet></router-outlet>
+      </div>
+  </main>
+</div>
